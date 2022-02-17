@@ -1,5 +1,11 @@
 # hjxh express cmd
 
+## download as source
+
+```shell
+git clone  https://github.com/hjxh-opendata/hjxh-express-match-cmd.git
+cd hjxh-express-match-cmd
+```
 
 ## config
 
