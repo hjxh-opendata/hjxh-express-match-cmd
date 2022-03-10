@@ -1,12 +1,14 @@
 import random
 from argparse import ArgumentParser
 
-from art import tprint, text2art
-from art.art_param import FONT_MAP
+from art import text2art
 from termcolor import colored, COLORS
+from colorama import init
 
 from check_file import check_file
-from errrors import dump_errors, MyError
+from errrors import dump_errors
+
+init()
 
 
 def print_hello(s, by="char", leading=2):
@@ -33,6 +35,10 @@ def print_hello(s, by="char", leading=2):
 
 
 if __name__ == '__main__':
+
+    # enable windows color output, ref: https://pypi.org/project/colorama/
+    init()
+
     print_hello("HJXH", by="line", leading=2)
 
     parser = ArgumentParser()
