@@ -1,20 +1,10 @@
 import json
 import os
 
-from termcolor import colored
-
-from base import DATA_DIR
-from interface import FileHistory
+from utils.paths import DATA_DIR
+from interface.files import FileHistory
 
 history = None
-
-
-def print_ok(s: str):
-    print(colored("  √", "green"), s)
-
-
-def print_error(s: str):
-    print(colored("  X", "red"), s)
 
 
 def get_history_file_path() -> str:

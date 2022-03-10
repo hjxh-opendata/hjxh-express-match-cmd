@@ -1,14 +1,10 @@
 import datetime
 import logging.handlers
-import os
 
-from base import LOG_DIR
+from .paths import LOG_ALL_PATH, LOG_ERR_PATH
 
-LOG_ALL_PATH = os.path.join(LOG_DIR, "all.log")
-LOG_ERR_PATH = os.path.join(LOG_DIR, "err.log")
-
-my_logger = logging.getLogger('mylogger')
-my_logger.setLevel(logging.DEBUG)
+logger = logging.getLogger('mylogger')
+logger.setLevel(logging.DEBUG)
 
 rf_handler = logging.handlers.TimedRotatingFileHandler(
     LOG_ALL_PATH, when='midnight', interval=1, backupCount=7, atTime=datetime.time(0, 0, 0, 0))
@@ -20,8 +16,8 @@ f_handler.setLevel(logging.ERROR)
 f_handler.setFormatter(logging.Formatter(
     "%(asctime)s - %(levelname)s - %(filename)s[:%(lineno)d] - %(funcName)s - %(message)s"))
 
-my_logger.addHandler(rf_handler)
-my_logger.addHandler(f_handler)
+logger.addHandler(rf_handler)
+logger.addHandler(f_handler)
 
 # logger.debug('debug message')
 # logger.info('info message')

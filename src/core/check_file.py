@@ -4,11 +4,11 @@ from typing import List
 
 from termcolor import colored
 
-from const import FileStatus
-from errrors import MyError, VALID_FILE_SUFFIXES, VALID_FILE_PREFIXES, TARGET_ERP_FIELDS, TARGET_TRD_FIELDS
-from log import my_logger
-from utils import print_ok, print_error, read_history, dump_history
-from interface import FileType
+from interface.errrors import MyError, VALID_FILE_SUFFIXES, VALID_FILE_PREFIXES, TARGET_ERP_FIELDS, TARGET_TRD_FIELDS
+from utils.log import logger
+from utils.art import print_ok, print_error
+from utils.history import read_history, dump_history
+from interface.files import FileType, FileStatus
 
 
 def get_file_type(fn: str) -> FileType:
@@ -25,7 +25,7 @@ def get_target_fields(ft: FileType) -> List[str]:
 
 
 def check_file(fp: str):
-    my_logger.info(f"checking file: <{fp}>")
+    logger.info(f"checking file: <{fp}>")
     fn = os.path.basename(fp).strip()
     print(f"--- checking file: {colored(fn, 'yellow')}")
 
@@ -54,15 +54,16 @@ def check_file(fp: str):
     target_fields = get_target_fields(file_type)
 
     for encoding in ["utf-8", "gbk"]:
-        my_logger.info(f"trying to parse file using encoding: [{encoding}]")
+        logger.info(f"trying to parse file using encoding: [{encoding}]")
         with open(fp, encoding=encoding) as f:
-            reader = csv.reader(f)  # see: - [csv — CSV File Reading and Writing — Python 3.10.2 documentation](https://docs.python.org/3/library/csv.html)
+            reader = csv.reader(
+                f)  # see: - [csv — CSV File Reading and Writing — Python 3.10.2 documentation](https://docs.python.org/3/library/csv.html)
             line = 0
             try:
                 row = reader.__iter__().__next__()
                 print_ok(f"encoding verified: [{encoding}]")
 
-                my_logger.info({"head row": row})
+                logger.info({"head row": row})
                 for target_field in target_fields:
                     if target_field not in row:
                         print_error(f"failed to find target field of [{target_field}] in head row of {row}")

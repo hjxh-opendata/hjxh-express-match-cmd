@@ -1,45 +1,12 @@
-import random
 from argparse import ArgumentParser
 
-from art import text2art
-from termcolor import colored, COLORS
-from colorama import init
-
-from check_file import check_file
-from errrors import dump_errors
-
-init()
-
-
-def print_hello(s, by="char", leading=2):
-    s = text2art(s, "alligator")
-    print()
-    if by == "char":
-        print(" " * leading, end="")
-        for (i, c) in enumerate(s):
-            if c == "\n":
-                print("\n", " " * leading, end="")
-            else:
-                print(colored(c, random.choice(list(COLORS))), end="")
-    elif by == "line":
-        # COLOR_LIST = 'red, magenta, blue, green, cyan, cyan, white, yellow'.split(", ")
-        COLOR_LIST = 'red, magenta, blue, green, cyan, white, yellow'.split(", ")
-        COLOR_LIST.reverse()
-        for (i, line) in enumerate(s.splitlines()):
-            print(" " * leading, colored(line, COLOR_LIST[i]))
-            # print(" " * leading, colored(line, random.choice(list(COLORS))))
-    else:
-        for line in s.splitlines():
-            print(" " * leading, line)
-    print()
-
+from core.check_file import check_file
+from interface.errrors import dump_errors
+from utils.art import display_art
 
 if __name__ == '__main__':
 
-    # enable windows color output, ref: https://pypi.org/project/colorama/
-    init()
-
-    print_hello("HJXH", by="line", leading=2)
+    display_art("HJXH", by="line", leading=2)
 
     parser = ArgumentParser()
 
@@ -50,7 +17,6 @@ if __name__ == '__main__':
 
     if args.print_errors:
         dump_errors()
-        exit()
 
     if args.check_file:
         check_file(args.check_file)

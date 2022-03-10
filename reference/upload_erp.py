@@ -6,9 +6,9 @@ import pandas as pd
 from fastapi.datastructures import UploadFile
 from pymongo.errors import BulkWriteError, DuplicateKeyError
 
-from ..base import Status
+from utils.paths import Status
 from ..config import COLL_ERP_PREFIX, ERP_SHIPTIME_KEY, ERP_FIXED_COLUMNS, ERP_FILETYPES_ALLOWED, ERP_ID_KEY
-from ..db.conn import db, push_db
+from ..db.conn import db
 from ..utils.general import guess_encoding
 
 
